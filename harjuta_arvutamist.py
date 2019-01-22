@@ -1,6 +1,10 @@
 import string
 from random import randint
 
+calculation_count = 0
+calculation_count_max = 20
+correct_answers = 0
+
 def ask_for_method():
     while True:
         method = input("Korrutad, jagad, või teed mõlemat? (sisesta k, j või m): ")
@@ -30,8 +34,11 @@ def ask_for_factor():
             return fixed_factor
 
 def make_multiplication():
+    global calculation_count
+    global correct_answers
     random_factor = randint(1,10)
     correct_result = fixed_factor*random_factor
+    calculation_count += 1
 
     coin = randint(2,3)
     if coin % 2 == 0:
@@ -47,15 +54,19 @@ def make_multiplication():
             given_result = int(given_result)
             if given_result == correct_result:
                 print("Tubli! Õige vastus!")
+                correct_answers += 1
                 return
             else:
                 print("Kahjuks vastasid valesti. Õige vastus oli " + str(correct_result))
                 return
 
 def make_division():
+    global calculation_count
+    global correct_answers
     random_factor = randint(1,10)
     divisible = fixed_factor*random_factor
     division_display_string = str(divisible) + " : " +  str(fixed_factor) + " = "
+    calculation_count += 1
 
     while True:
         given_result = input(division_display_string)
@@ -65,24 +76,38 @@ def make_division():
             given_result = int(given_result)
             if given_result == random_factor:
                 print("Tubli! Õige vastus!")
+                correct_answers += 1
                 return
             else:
                 print("Kahjuks vastasid valesti. Õige vastus oli " + str(random_factor))
                 return
 
+def grade_the_student():
+    percent = correct_answers / calculation_count_max
+    if percent >= 0.90:
+        grade = 5
+    elif percent >= 0.75:
+        grade = 4
+    elif percent >= 0.50:
+        grade = 3
+    else:
+        grade = 2
+    print("\nTegid õigesti " + str(correct_answers) + " ülesannet, hindele " + str(grade) + "\n")
+
+
 if __name__ == "__main__":
-    print("\nProgrammist väljumiseks vajuta CTRL+C\n")
+    print("\nProgramm annab sulle 20 ülesannet ja seejärel hindab tulemusi.\n")
     method = ask_for_method()
     fixed_factor = ask_for_factor()
 
     if method == 'k':
-        while True:
+        while calculation_count < calculation_count_max:
             make_multiplication()
     elif method == 'j':
-        while True:
+        while calculation_count < calculation_count_max:
             make_division()
     elif method == 'm':
-        while True:
+        while calculation_count < calculation_count_max:
             coin = randint(2,3)
             if coin % 2 == 0:
                 make_multiplication()
@@ -90,4 +115,5 @@ if __name__ == "__main__":
                 make_division()
     else:
         print('Programm läks katki. Palun ütle õpetaja Henrile.')
+    grade_the_student()
 
