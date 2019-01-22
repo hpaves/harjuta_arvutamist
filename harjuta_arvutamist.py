@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+# -*- coding: utf-8 -*-
 import string
 from random import randint
 
@@ -16,10 +18,9 @@ def ask_for_method():
 def ask_for_factor():
     while True: # https://stackoverflow.com/questions/23294658/asking-the-user-for-input-until-they-give-a-valid-response/23294659
         try:
-            fixed_factor = int(input("Sisesta number millega arvutada tahad (1-10): "))
+            fixed_factor = int(input("\nSisesta number millega arvutada tahad (1-10): "))
         except ValueError:
             print("See polnud number. Proovi veelkord.")
-            #better try again... Return to the start of the loop
             continue
 
         if fixed_factor < 1:
@@ -29,8 +30,6 @@ def ask_for_factor():
             print("Üle 10 võib keeruliseks minna.")
             continue
         else:
-            #shift was successfully parsed!
-            #we're ready to exit the loop.
             return fixed_factor
 
 def make_multiplication():
@@ -94,6 +93,16 @@ def grade_the_student():
         grade = 2
     print("\nTegid õigesti " + str(correct_answers) + " ülesannet, hindele " + str(grade) + "\n")
 
+# Windows compatibily section!!!
+# Comment this back in when using double click to run the script in Windows
+# Else the terminal will close immediately after the exercises are done and you won't see the grade
+    # while True:
+    #     exitcode = input("Sisesta j, et väljuda: ")
+    #     if exitcode.lower() not in ('j'):
+    #         print("Siestasid valesti. Proovi veelkord.")
+    #     else:
+    #         break
+
 
 if __name__ == "__main__":
     print("\nProgramm annab sulle 20 ülesannet ja seejärel hindab tulemusi.\n")
@@ -116,4 +125,3 @@ if __name__ == "__main__":
     else:
         print('Programm läks katki. Palun ütle õpetaja Henrile.')
     grade_the_student()
-
