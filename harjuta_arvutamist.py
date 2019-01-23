@@ -93,9 +93,10 @@ def grade_the_student():
         grade = 2
     print("\nTegid õigesti " + str(correct_answers) + " ülesannet, hindele " + str(grade) + "\n")
 
-# Windows compatibily section!!!
+# Windows compatibility section!!!
 # Comment this back in when using double click to run the script in Windows
 # Else the terminal will close immediately after the exercises are done and you won't see the grade
+# Ignore this if you run the script straight from a *nix terminal
     # while True:
     #     exitcode = input("Sisesta j, et väljuda: ")
     #     if exitcode.lower() not in ('j'):
