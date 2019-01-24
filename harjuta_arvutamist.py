@@ -6,6 +6,9 @@ from random import randint
 calculation_count = 0
 calculation_count_max = 20
 correct_answers = 0
+clean_array = [1,2,3,4,5,6,7,8,9,10]
+multiplication_array = clean_array.copy()
+division_array = clean_array.copy()
 
 def ask_for_method():
     while True:
@@ -32,10 +35,17 @@ def ask_for_factor():
         else:
             return fixed_factor
 
+def give_non_repeat_random_number(array):
+    if len(array) == 0:
+        array = clean_array.copy()
+    random_index = randint(0,len(array) - 1)
+    randomly_selected_number = array.pop(random_index)
+    return randomly_selected_number
+
 def make_multiplication():
     global calculation_count
     global correct_answers
-    random_factor = randint(1,10)
+    random_factor = give_non_repeat_random_number(multiplication_array)
     correct_result = fixed_factor*random_factor
     calculation_count += 1
 
@@ -62,7 +72,7 @@ def make_multiplication():
 def make_division():
     global calculation_count
     global correct_answers
-    random_factor = randint(1,10)
+    random_factor = give_non_repeat_random_number(division_array)
     divisible = fixed_factor*random_factor
     division_display_string = str(divisible) + " : " +  str(fixed_factor) + " = "
     calculation_count += 1
