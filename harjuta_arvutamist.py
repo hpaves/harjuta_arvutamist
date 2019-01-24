@@ -21,19 +21,17 @@ def ask_for_method():
 def ask_for_factor():
     while True: # https://stackoverflow.com/questions/23294658/asking-the-user-for-input-until-they-give-a-valid-response/23294659
         try:
-            fixed_factor = int(input("\nSisesta number millega arvutada tahad (1-10): "))
+            # https://www.quora.com/How-can-take-more-than-one-input-in-one-line-in-python/answer/Vaishnavi-Bhalerao-1
+            fixed_factor_input = list(map(int, input("\nSisesta numbrid millega arvutada tahad (eralda komaga): ").split(",")))
         except ValueError:
-            print("See polnud number. Proovi veelkord.")
+            print("Sisestati ebasobiv sümbol. Proovi veelkord.")
             continue
+        return fixed_factor_input
 
-        if fixed_factor < 1:
-            print("Ära nulli ja negatiivseid arve pane.")
-            continue
-        elif fixed_factor > 10:
-            print("Üle 10 võib keeruliseks minna.")
-            continue
-        else:
-            return fixed_factor
+def give_random_fixed_factor():
+    random_index = randint(0,len(fixed_factor_array) - 1)
+    randomly_selected_number = fixed_factor_array[random_index]
+    return randomly_selected_number
 
 def give_non_repeat_random_number(array):
     if len(array) == 0:
@@ -45,6 +43,7 @@ def give_non_repeat_random_number(array):
 def make_multiplication():
     global calculation_count
     global correct_answers
+    fixed_factor = give_random_fixed_factor()
     random_factor = give_non_repeat_random_number(multiplication_array)
     correct_result = fixed_factor*random_factor
     calculation_count += 1
@@ -72,6 +71,7 @@ def make_multiplication():
 def make_division():
     global calculation_count
     global correct_answers
+    fixed_factor = give_random_fixed_factor()
     random_factor = give_non_repeat_random_number(division_array)
     divisible = fixed_factor*random_factor
     division_display_string = str(divisible) + " : " +  str(fixed_factor) + " = "
@@ -114,11 +114,10 @@ def grade_the_student():
     #     else:
     #         break
 
-
 if __name__ == "__main__":
     print("\nProgramm annab sulle 20 ülesannet ja seejärel hindab tulemusi.\n")
     method = ask_for_method()
-    fixed_factor = ask_for_factor()
+    fixed_factor_array = ask_for_factor()
 
     if method == 'k':
         while calculation_count < calculation_count_max:
