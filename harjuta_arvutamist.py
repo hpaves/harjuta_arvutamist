@@ -10,21 +10,27 @@ clean_array = [1,2,3,4,5,6,7,8,9,10]
 multiplication_array = clean_array.copy()
 division_array = clean_array.copy()
 
+def invalid_symbol_message():
+    print("Siestasid valesti. Proovi veelkord.")
+
+
 def ask_for_method():
     while True:
-        method = input("Korrutad, jagad, või teed mõlemat? (sisesta k, j või m): ")
+        method = input("Korrutad, jagad, või teed mõlemat? (sisesta k, j \
+või m): ")
         if method.lower() not in ('k', 'j', 'm'):
-            print("Siestasid valesti. Proovi veelkord.")
+            invalid_symbol_message()
         else:
             return method
 
 def ask_for_factor():
-    while True: # https://stackoverflow.com/questions/23294658/asking-the-user-for-input-until-they-give-a-valid-response/23294659
+    while True: # Stackoverflow: https://bit.ly/2HEdD7k
         try:
-            # https://www.quora.com/How-can-take-more-than-one-input-in-one-line-in-python/answer/Vaishnavi-Bhalerao-1
-            fixed_factor_input = list(map(int, input("\nSisesta numbrid millega arvutada tahad (eralda komaga): ").split(",")))
+            # Quora: https://bit.ly/2Tdrsed
+            fixed_factor_input = list(map(int, input("\nSisesta numbrid \
+millega arvutada tahad (eralda komaga): ").split(",")))
         except ValueError:
-            print("Sisestati ebasobiv sümbol. Proovi veelkord.")
+            invalid_symbol_message()
             continue
         return fixed_factor_input
 
@@ -50,15 +56,17 @@ def make_multiplication():
 
     coin = randint(2,3)
     if coin % 2 == 0:
-        multiplication_display_string = str(fixed_factor) + " * " +  str(random_factor) + " = "
+        multiplication_display_string = str(fixed_factor) + " * " \
+        + str(random_factor) + " = "
     else:
-        multiplication_display_string = str(random_factor) + " * " +  str(fixed_factor) + " = "
+        multiplication_display_string = str(random_factor) + " * " \
+        + str(fixed_factor) + " = "
 
     while True:
         try:
             given_result = int(input(multiplication_display_string))
         except ValueError:
-            print("Sisestati ebasobiv sümbol. Proovi veelkord.")
+            invalid_symbol_message()
             continue
 
         if given_result == correct_result:
@@ -66,7 +74,8 @@ def make_multiplication():
             correct_answers += 1
             return
         else:
-            print("Kahjuks vastasid valesti. Õige vastus oli " + str(correct_result))
+            print("Kahjuks vastasid valesti. Õige vastus oli " \
+            + str(correct_result))
             return
 
 def make_division():
@@ -75,14 +84,15 @@ def make_division():
     fixed_factor = give_random_fixed_factor()
     random_factor = give_non_repeat_random_number(division_array)
     divisible = fixed_factor*random_factor
-    division_display_string = str(divisible) + " : " +  str(fixed_factor) + " = "
+    division_display_string = str(divisible) + " : " +  str(fixed_factor) \
+    + " = "
     calculation_count += 1
 
     while True:
         try:
             given_result = int(input(division_display_string))
         except ValueError:
-            print("Sisestati ebasobiv sümbol. Proovi veelkord.")
+            invalid_symbol_message()
             continue
 
         if given_result == random_factor:
@@ -90,7 +100,8 @@ def make_division():
             correct_answers += 1
             return
         else:
-            print("Kahjuks vastasid valesti. Õige vastus oli " + str(random_factor))
+            print("Kahjuks vastasid valesti. Õige vastus oli " \
+            + str(random_factor))
             return
 
 def grade_the_student():
@@ -103,18 +114,20 @@ def grade_the_student():
         grade = 3
     else:
         grade = 2
-    print("\nTegid õigesti " + str(correct_answers) + " ülesannet, hindele " + str(grade) + "\n")
+    print("\nTegid õigesti " + str(correct_answers) + " ülesannet, hindele " \
+    + str(grade) + "\n")
 
 # Windows compatibility section!!!
-# Comment this back in when using double click to run the script in Windows
-# Else the terminal will close immediately after the exercises are done and you won't see the grade
-# Ignore this if you run the script straight from a *nix terminal
-    # while True:
-    #     exitcode = input("Sisesta j, et väljuda: ")
-    #     if exitcode.lower() not in ('j'):
-    #         print("Siestasid valesti. Proovi veelkord.")
-    #     else:
-    #         break
+# Necessary when using double click to run the script in Windows
+# Else the terminal will close immediately after \
+# the exercises are done and you won't see the grade
+# You can comment this out if you run the script straight from a *nix terminal
+    while True:
+        exitcode = input("Sisesta j, et väljuda: ")
+        if exitcode.lower() not in ('j'):
+            invalid_symbol_message()
+        else:
+            break
 
 if __name__ == "__main__":
     print("\nProgramm annab sulle 20 ülesannet ja seejärel hindab tulemusi.\n")
