@@ -55,18 +55,19 @@ def make_multiplication():
         multiplication_display_string = str(random_factor) + " * " +  str(fixed_factor) + " = "
 
     while True:
-        given_result = input(multiplication_display_string)
-        if len(given_result) == 0:
+        try:
+            given_result = int(input(multiplication_display_string))
+        except ValueError:
+            print("Sisestati ebasobiv sümbol. Proovi veelkord.")
             continue
+
+        if given_result == correct_result:
+            print("Tubli! Õige vastus!")
+            correct_answers += 1
+            return
         else:
-            given_result = int(given_result)
-            if given_result == correct_result:
-                print("Tubli! Õige vastus!")
-                correct_answers += 1
-                return
-            else:
-                print("Kahjuks vastasid valesti. Õige vastus oli " + str(correct_result))
-                return
+            print("Kahjuks vastasid valesti. Õige vastus oli " + str(correct_result))
+            return
 
 def make_division():
     global calculation_count
@@ -78,18 +79,19 @@ def make_division():
     calculation_count += 1
 
     while True:
-        given_result = input(division_display_string)
-        if len(given_result) == 0:
+        try:
+            given_result = int(input(division_display_string))
+        except ValueError:
+            print("Sisestati ebasobiv sümbol. Proovi veelkord.")
             continue
+
+        if given_result == random_factor:
+            print("Tubli! Õige vastus!")
+            correct_answers += 1
+            return
         else:
-            given_result = int(given_result)
-            if given_result == random_factor:
-                print("Tubli! Õige vastus!")
-                correct_answers += 1
-                return
-            else:
-                print("Kahjuks vastasid valesti. Õige vastus oli " + str(random_factor))
-                return
+            print("Kahjuks vastasid valesti. Õige vastus oli " + str(random_factor))
+            return
 
 def grade_the_student():
     percent = correct_answers / calculation_count_max
